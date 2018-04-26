@@ -4,7 +4,7 @@ import pandas as pd
 sml = Speedml('trainTitanic.csv', 
               'testTitanic.csv', 
               target = 'Survived',
-              uid = 'PassengerId')
+              uid = 'PassengerId')*2
 sml.shape()
 
 sml.configure('overfit_threshold', 
@@ -130,6 +130,9 @@ sml.plot.model_ranks()
 
 sml.model.ranks()
 
+
+
+# Buuild model
 sml.xgb.fit()
 sml.xgb.predict()
 
@@ -137,16 +140,16 @@ sml.xgb.feature_selection()
 
 sml.xgb.sample_accuracy()
 
-# sml.save_results(
-#     columns={ 'PassengerId': sml.uid,
-#              'Survived': sml.xgb.predictions }, 
-#     file_path='output/titanic-speedml-{}.csv'.format(sml.slug()))
-# sml.slug()
+sml.save_results(
+    columns={ 'PassengerId': sml.uid,
+             'Survived': sml.xgb.predictions }, 
+    file_path='output/titanic-speedml-{}.csv'.format(sml.slug()))
+sml.slug()
 
-# # submission = pd.DataFrame({
-# #         "PassengerId": sml.uid ,
-# #         "Survived": sml.xgb.predictions
-# #     })
-# submission.to_csv('submission.csv', index=False)
+# submission = pd.DataFrame({
+#         "PassengerId": sml.uid ,
+#         "Survived": sml.xgb.predictions
+#     })
+submission.to_csv('submission.csv', index=False)
 
 print(sml.uid)
