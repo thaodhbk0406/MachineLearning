@@ -98,11 +98,10 @@ if __name__ == '__main__':
         train = json.load(data_file)
     with open('test.json') as data_file:
         test = json.load(data_file)
-    with open('test.json') as data_file:
-        unlabeled_train = json.load(data_file)
+    
 
     # train=pd.DataFrame(train)
-    unlabeled_train= pd.DataFrame(unlabeled_train)
+    # unlabeled_train= pd.DataFrame(unlabeled_train)
     train = pd.DataFrame(train)
     test = pd.DataFrame(test)
     train.sentiment = train.sentiment.map({"positive":2, "negative":0, "neutral":1})
@@ -127,9 +126,9 @@ if __name__ == '__main__':
     for review in train["text"]:
         sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
 
-    print ("Parsing sentences from unlabeled set")
-    for review in unlabeled_train["text"]:
-        sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
+    # print ("Parsing sentences from unlabeled set")
+    # for review in unlabeled_train["text"]:
+    #     sentences += KaggleWord2VecUtility.review_to_sentences(review, tokenizer)
 
     # ****** Set parameters and train the word2vec model
     #
@@ -160,12 +159,12 @@ if __name__ == '__main__':
     model_name = "300features_40minwords_10context"
     model.save(model_name)
 
-    # model.doesnt_match("man woman child kitchen".split())
+    model.doesnt_match("мужчина женщина детская кухня".split())
     # model.doesnt_match("france england germany berlin".split())
     # model.doesnt_match("paris berlin london austria".split())
-    # model.most_similar("man")
-    # model.most_similar("queen")
-    # model.most_similar("awful")
+    model.most_similar("человек")
+    model.most_similar("Королева")
+    model.most_similar("ужасный")
 
 
     
